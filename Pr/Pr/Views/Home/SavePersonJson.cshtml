@@ -1,0 +1,17 @@
+﻿@model Person
+<div style="margin:30px">
+    <form method="post" asp-controller="Home" asp-action="SavePersonJson">
+        <label>Фамилия: </label> <input asp-for="LastName" type="text" />
+        <span asp-validation-for="LastName"></span><br />
+
+        <label>Имя: </label> <input asp-for="FirstName" type="text"/>
+        <span asp-validation-for="FirstName"></span><br />
+
+        <label>Отчество: </label> <input asp-for="MiddleName" type="text" />
+        <span asp-validation-for="MiddleName"></span><br />
+
+        <label>Дата рождения: </label> <input asp-for="BirthDate" type="date" />
+        <span asp-validation-for="BirthDate"></span><br />
+        <input type="submit" value="Отправить" /> <br />
+    </form>
+</div>

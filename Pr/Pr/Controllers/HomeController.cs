@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Pr.Models;
+using Newtonsoft.Json;
 
 namespace Pr.Controllers
 {
@@ -22,16 +19,24 @@ namespace Pr.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
+        public IActionResult SavePersonJson()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult SavePersonJson(Person person)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (!ModelState.IsValid)
+            { 
+                return View(person);
+            }
+            var settings = new JsonSerializerSettings() { DateFormatString = "yyyy-MM-dd" };
+            person.MiddleName = person.MiddleName ?? "";
+            var json = JsonConvert.SerializeObject(person, Formatting.Indented, settings);
+            System.IO.File.WriteAllText("PersonJson\\person.json", json);
+            return RedirectToAction("SavePersonJson");
         }
+        
     }
 }
