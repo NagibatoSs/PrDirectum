@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PersonJson\" />
+    <Folder Include="JsonData\" />
   </ItemGroup>
 
 </Project>
